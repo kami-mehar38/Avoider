@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="pref_sync"
+        android:summary="Whenever this app runs, you have to enter password"
+        android:title="Ask for password" />
+
+    <EditTextPreference
+        android:key="Password"
+        android:title="Change password"
+        android:dialogTitle="New Password"
+        android:defaultValue="1234"/>
+</PreferenceScreen>
