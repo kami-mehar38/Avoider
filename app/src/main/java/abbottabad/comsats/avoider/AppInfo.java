@@ -11,12 +11,21 @@ class AppInfo {
     private String name;
     private Drawable appIcon;
     private String packageName;
+    private boolean isChecked;
 
-    public String getPackageName() {
+    boolean isChecked() {
+        return isChecked;
+    }
+
+    void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    String getPackageName() {
         return packageName;
     }
 
-    public void setPackageName(String packageName) {
+    void setPackageName(String packageName) {
         this.packageName = packageName;
     }
 

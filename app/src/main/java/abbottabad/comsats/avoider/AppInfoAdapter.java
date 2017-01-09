@@ -39,16 +39,19 @@ import java.util.List;
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        AppInfo appInfo = appInfoList.get(position);
+        final AppInfo appInfo = appInfoList.get(position);
         holder.appIcon.setImageDrawable(appInfo.getAppIcon());
         holder.appName.setText(appInfo.getName());
         holder.appPackage.setText(appInfo.getPackageName());
         if (sharedPreferences.getBoolean(holder.appPackage.getText().toString() + "_IS_ON", false)){
-            holder.appLock.setChecked(true);
-        }
+            appInfo.setChecked(true);
+        } else appInfo.setChecked(false);
+        holder.appLock.setOnCheckedChangeListener(null);
+        holder.appLock.setChecked(appInfo.isChecked());
         holder.appLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                appInfo.setChecked(b);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (b) {
                     Toast.makeText(context, holder.appName.getText().toString() + " Locked", Toast.LENGTH_SHORT).show();
