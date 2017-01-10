@@ -28,17 +28,16 @@ public class CheckApplicationsStatus extends Service {
                 if (sharedPreferences.getBoolean(process + "_IS_ON", false)) {
                     if (currentApp == null || !currentApp.equals(process)) {
                         currentApp = process;
-                        Intent intent = new Intent(CheckApplicationsStatus.this, LoackScreen.class);
+                        Intent intent = new Intent(CheckApplicationsStatus.this, LockScreen.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("APP_PACKAGE", process);
                         startActivity(intent);
                     }
                 } else if (!process.equalsIgnoreCase("abbottabad.comsats.avoider")) {
                     currentApp = process;
                 }
             }
-        }).timeout(2000).start(this);
+        }).timeout(100).start(this);
 
         return START_STICKY;
     }

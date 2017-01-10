@@ -66,9 +66,9 @@ class BackgroundTasks {
         @Override
         protected void onPostExecute(List<AppInfo> appInfoList) {
             progressDialog.cancel();
-            if (appInfoList.size() > 0 && MainActivity.appInfoAdapter != null) {
+            if (appInfoList.size() > 0 && AppsActivity.appInfoAdapter != null) {
                 for(AppInfo appInfo : appInfoList) {
-                    MainActivity.appInfoAdapter.addItem(appInfo, 0);
+                    AppsActivity.appInfoAdapter.addItem(appInfo, 0);
                 }
             }
         }

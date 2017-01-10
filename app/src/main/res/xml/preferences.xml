@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="pref_sync"
+        android:defaultValue="false"
+        android:key="LockMyApp"
         android:summary="Whenever this app runs, you have to enter password"
         android:title="Ask for password" />
 
     <EditTextPreference
-        android:key="Password"
-        android:title="Change password"
+        android:defaultValue="1234"
         android:dialogTitle="New Password"
-        android:defaultValue="1234"/>
+        android:key="PasswordApp"
+        android:summary="Used for this application"
+        android:title="Change app password" />
+
+    <EditTextPreference
+        android:defaultValue="1234"
+        android:dialogTitle="New Password"
+        android:key="Password"
+        android:summary="Used for other locked applications"
+        android:title="Change password" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="RemoveFromRecent"
+        android:summary="This application will not be visible in background apps"
+        android:title="Exclude from recents" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="VibrateIfWrong"
+        android:title="Vibrate on wrong password" />
+
 </PreferenceScreen>
