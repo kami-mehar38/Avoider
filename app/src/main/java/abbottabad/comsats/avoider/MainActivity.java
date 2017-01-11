@@ -18,6 +18,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText ET_password;
     private SharedPreferences sharedPreferences;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, AppsActivity.class));
             finish();
         }
+        password = sharedPreferences.getString("PASSWORDAPP", "1234");
         ET_password = (EditText) findViewById(R.id.ET_password);
         disableSoftKeyboard(ET_password);
         Button btn_1 = (Button) findViewById(R.id.btn_1);
@@ -74,61 +76,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_0: {
                 ET_password.append("0");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_1: {
                 ET_password.append("1");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_2: {
                 ET_password.append("2");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_3: {
                 ET_password.append("3");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_4: {
                 ET_password.append("4");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_5: {
                 ET_password.append("5");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_6: {
                 ET_password.append("6");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_7: {
                 ET_password.append("7");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_8: {
                 ET_password.append("8");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_9: {
                 ET_password.append("9");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
@@ -143,8 +145,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void buttonEnter() {
-        String password = ET_password.getText().toString().trim();
-        if (password.equals(sharedPreferences.getString("PASSWORDAPP", "1234"))) {
+        String passwordInput = ET_password.getText().toString().trim();
+        if (passwordInput.equals(password)) {
             startActivity(new Intent(MainActivity.this, AppsActivity.class));
             finish();
         } else if (sharedPreferences.getBoolean("VIBRATE_IF_WRONG", false)) {

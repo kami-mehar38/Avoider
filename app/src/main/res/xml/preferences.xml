@@ -11,7 +11,8 @@
         android:dialogTitle="New Password"
         android:key="PasswordApp"
         android:summary="Used for this application"
-        android:title="Change app password" />
+        android:title="Change app password"
+        android:inputType="number"/>
 
     <CheckBoxPreference
         android:defaultValue="false"
@@ -24,6 +25,7 @@
         android:dialogTitle="New Password"
         android:key="Password"
         android:summary="Used for other locked applications"
-        android:title="Change password" />
+        android:title="Change password"
+        android:inputType="number"/>
 
 </PreferenceScreen>

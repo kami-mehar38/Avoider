@@ -25,8 +25,7 @@
             android:inputType="numberPassword"
             android:background="@drawable/edittext_background"
             android:textCursorDrawable="@drawable/edittext_cursor_color"
-            android:gravity="center"
-            android:maxLength="4" />
+            android:gravity="center" />
 
     </LinearLayout>
 

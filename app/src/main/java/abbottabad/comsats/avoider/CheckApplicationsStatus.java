@@ -25,6 +25,7 @@ public class CheckApplicationsStatus extends Service implements View.OnClickList
     private EditText ET_password;
     private WindowManager mWindowManager;
     private View view;
+    private String password;
 
     public CheckApplicationsStatus() {
     }
@@ -37,7 +38,7 @@ public class CheckApplicationsStatus extends Service implements View.OnClickList
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                0,
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 PixelFormat.TRANSLUCENT);
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         LinearLayout mLinear = new LinearLayout(getApplicationContext()) {
@@ -83,6 +84,7 @@ public class CheckApplicationsStatus extends Service implements View.OnClickList
         btn_delete.setOnClickListener(CheckApplicationsStatus.this);
 
         sharedPreferences = this.getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+        password = sharedPreferences.getString("PASSWORD", "1234");
         AppChecker appChecker = new AppChecker();
         appChecker.other(new AppChecker.Listener() {
             @Override
@@ -112,61 +114,61 @@ public class CheckApplicationsStatus extends Service implements View.OnClickList
         switch (view.getId()) {
             case R.id.btn_0: {
                 ET_password.append("0");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_1: {
                 ET_password.append("1");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_2: {
                 ET_password.append("2");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_3: {
                 ET_password.append("3");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_4: {
                 ET_password.append("4");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_5: {
                 ET_password.append("5");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_6: {
                 ET_password.append("6");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_7: {
                 ET_password.append("7");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_8: {
                 ET_password.append("8");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
             case R.id.btn_9: {
                 ET_password.append("9");
-                if (ET_password.length() == 4)
+                if (ET_password.length() == password.length())
                     buttonEnter();
                 break;
             }
@@ -181,8 +183,8 @@ public class CheckApplicationsStatus extends Service implements View.OnClickList
     }
 
     private void buttonEnter() {
-        String password = ET_password.getText().toString().trim();
-        if (password.equals(sharedPreferences.getString("PASSWORD", "1234"))) {
+        String passwordInput = ET_password.getText().toString().trim();
+        if (passwordInput.equals(password)) {
             mWindowManager.removeView(view);
             ET_password.setText("");
         } else if (sharedPreferences.getBoolean("VIBRATE_IF_WRONG", false)) {

@@ -28,10 +28,16 @@ public class AppsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apps);
-        requestUsageStatsPermission();
-        checkDrawPermission();
+
         String PREFERENCE_FILE_KEY = "abbottabad.comsats.avoider";
         sharedPreferences = getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestUsageStatsPermission();
+            checkDrawPermission();
+        }
+
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         appInfoAdapter = new AppInfoAdapter(this);
         recyclerView.setHasFixedSize(true);
@@ -39,7 +45,6 @@ public class AppsActivity extends AppCompatActivity {
         recyclerView.setAdapter(appInfoAdapter);
 
         new BackgroundTasks(this).getAllApps();
-        startService(new Intent(this, CheckApplicationsStatus.class));
     }
 
     @Override
@@ -63,10 +68,17 @@ public class AppsActivity extends AppCompatActivity {
         return true;
     }
 
+
     void requestUsageStatsPermission() {
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
                 && !hasUsageStatsPermission(this)) {
             startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+        } else {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("USAGE_STATS_PERMISSION_GRANTED", true);
+            editor.apply();
+            if (sharedPreferences.getBoolean("OVERLAY_PERMISSION_GRANTED", false))
+            startService(new Intent(this, CheckApplicationsStatus.class));
         }
     }
 
@@ -78,24 +90,29 @@ public class AppsActivity extends AppCompatActivity {
         return mode == AppOpsManager.MODE_ALLOWED;
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case RESULT_SETTINGS: {
-                SharedPreferences sharedPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(this);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("PASSWORD", sharedPrefs.getString("Password", "1234"));
-                editor.putString("PASSWORDAPP", sharedPrefs.getString("PasswordApp", "1234"));
-                editor.putBoolean("LOCK_MY_APP", sharedPrefs.getBoolean("LockMyApp", false));
-                editor.putBoolean("VIBRATE_IF_WRONG", sharedPrefs.getBoolean("VibrateIfWrong", false));
-                editor.apply();
-                break;
-            }
-            case REQUEST_CODE_ASK_PERMISSIONS: {
 
-                break;
+        if (requestCode == RESULT_SETTINGS) {
+            SharedPreferences sharedPrefs = PreferenceManager
+                    .getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("PASSWORD", sharedPrefs.getString("Password", "1234"));
+            editor.putString("PASSWORDAPP", sharedPrefs.getString("PasswordApp", "1234"));
+            editor.putBoolean("LOCK_MY_APP", sharedPrefs.getBoolean("LockMyApp", false));
+            editor.putBoolean("VIBRATE_IF_WRONG", sharedPrefs.getBoolean("VibrateIfWrong", false));
+            editor.apply();
+        } else if (requestCode == REQUEST_CODE_ASK_PERMISSIONS) {
+            if (!Settings.canDrawOverlays(AppsActivity.this)) {
+                checkDrawPermission();
+            } else {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("OVERLAY_PERMISSION_GRANTED", true);
+                editor.apply();
+                if (sharedPreferences.getBoolean("USAGE_STATS_PERMISSION_GRANTED", false))
+                startService(new Intent(this, CheckApplicationsStatus.class));
             }
         }
     }
@@ -110,4 +127,10 @@ public class AppsActivity extends AppCompatActivity {
         }
     }
 
+   /* @Override
+    protected void onResume() {
+        super.onResume();
+        requestUsageStatsPermission();
+        checkDrawPermission();
+    }*/
 }
