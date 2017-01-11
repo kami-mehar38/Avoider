@@ -22,7 +22,6 @@ android {
         maven { url 'https://dl.bintray.com/rvalerio/maven' }
     }
 
-
 }
 
 dependencies {
@@ -37,5 +36,6 @@ dependencies {
     compile 'com.rvalerio:fgchecker:1.0.1'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:support-vector-drawable:25.1.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     testCompile 'junit:junit:4.12'
 }

@@ -25,7 +25,6 @@ public class CheckApplicationsStatus extends Service implements View.OnClickList
     private EditText ET_password;
     private WindowManager mWindowManager;
     private View view;
-    private LinearLayout mLinear;
 
     public CheckApplicationsStatus() {
     }
@@ -38,10 +37,10 @@ public class CheckApplicationsStatus extends Service implements View.OnClickList
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                0,
                 PixelFormat.TRANSLUCENT);
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        mLinear =  new LinearLayout(getApplicationContext()) {
+        LinearLayout mLinear = new LinearLayout(getApplicationContext()) {
 
             @Override
             public boolean dispatchKeyEvent(KeyEvent event) {

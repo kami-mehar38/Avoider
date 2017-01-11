@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/settings_toolbar"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    android:minHeight="?attr/actionBarSize"
-    android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+    android:minHeight="@dimen/abc_action_bar_default_height_material"
+    android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+    tools:ignore="PrivateResource">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,10 +16,11 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settings"
+            android:text="@string/app_name"
             android:textColor="#fff"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textSize="20sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"/>
 
     </RelativeLayout>
 

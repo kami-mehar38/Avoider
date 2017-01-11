@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class AppsActivity extends AppCompatActivity {
-    private final String PREFERENCE_FILE_KEY = "abbottabad.comsats.avoider";
     private SharedPreferences sharedPreferences;
     public static AppInfoAdapter appInfoAdapter;
     private final int RESULT_SETTINGS = 10;
@@ -31,6 +30,7 @@ public class AppsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_apps);
         requestUsageStatsPermission();
         checkDrawPermission();
+        String PREFERENCE_FILE_KEY = "abbottabad.comsats.avoider";
         sharedPreferences = getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         appInfoAdapter = new AppInfoAdapter(this);
@@ -40,8 +40,6 @@ public class AppsActivity extends AppCompatActivity {
 
         new BackgroundTasks(this).getAllApps();
         startService(new Intent(this, CheckApplicationsStatus.class));
-
-
     }
 
     @Override
@@ -55,6 +53,10 @@ public class AppsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings: {
                 startActivityForResult(new Intent(AppsActivity.this, SettingsActivity.class), RESULT_SETTINGS);
+                break;
+            }
+            case R.id.action_about_us: {
+                startActivity(new Intent(AppsActivity.this, AboutUs.class));
                 break;
             }
         }

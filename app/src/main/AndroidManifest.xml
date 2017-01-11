@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="abbottabad.comsats.avoider">
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission
@@ -26,14 +27,31 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".CheckApplicationsStatus"
-            android:exported="false"/>
+        <service
+            android:name=".CheckApplicationsStatus"
+            android:enabled="true"
+            android:exported="false" />
 
-        <activity android:name=".AppsActivity"
-            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".AppsActivity"
+            android:excludeFromRecents="true" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
+
+        <receiver
+            android:name=".BootUpReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".AboutUs"
+            android:label="@string/about_us"
+            android:excludeFromRecents="true" />
     </application>
 
 </manifest>

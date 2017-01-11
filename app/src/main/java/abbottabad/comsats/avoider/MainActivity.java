@@ -17,13 +17,13 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText ET_password;
-    private final String PREFERENCE_FILE_KEY = "abbottabad.comsats.avoider";
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lock_screen);
+        setContentView(R.layout.activity_main);
+        String PREFERENCE_FILE_KEY = "abbottabad.comsats.avoider";
         sharedPreferences = getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean("LOCK_MY_APP", false)) {
             startActivity(new Intent(this, AppsActivity.class));
