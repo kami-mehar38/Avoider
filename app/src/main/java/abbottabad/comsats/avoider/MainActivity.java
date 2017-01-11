@@ -10,7 +10,6 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 /**
  * This project Avoider is created by Kamran Ramzan on 10-Jan-17.
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_9.setOnClickListener(this);
         Button btn_0 = (Button) findViewById(R.id.btn_0);
         btn_0.setOnClickListener(this);
-        ImageButton btn_delete = (ImageButton) findViewById(R.id.btn_delete);
+        Button btn_delete = (Button) findViewById(R.id.btn_delete);
         btn_delete.setOnClickListener(this);
     }
 

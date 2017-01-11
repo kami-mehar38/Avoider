@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -60,6 +62,12 @@ class BackgroundTasks {
                     appInfoList.add(appInfo);
                 }
             }
+            Collections.sort(appInfoList, new Comparator<AppInfo>() {
+                @Override
+                public int compare(AppInfo lhs, AppInfo rhs) {
+                    return rhs.getName().compareToIgnoreCase(lhs.getName());
+                }
+            });
             return appInfoList;
         }
 

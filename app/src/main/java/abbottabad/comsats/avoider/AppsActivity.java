@@ -5,6 +5,7 @@ import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,7 +22,7 @@ public class AppsActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     public static AppInfoAdapter appInfoAdapter;
     private final int RESULT_SETTINGS = 10;
-
+    private final int REQUEST_CODE_ASK_PERMISSIONS = 18;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @Override
@@ -29,6 +30,7 @@ public class AppsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apps);
         requestUsageStatsPermission();
+        checkDrawPermission();
         sharedPreferences = getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         appInfoAdapter = new AppInfoAdapter(this);
@@ -57,11 +59,6 @@ public class AppsActivity extends AppCompatActivity {
             }
         }
         return true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     void requestUsageStatsPermission() {
@@ -94,6 +91,21 @@ public class AppsActivity extends AppCompatActivity {
                 editor.apply();
                 break;
             }
+            case REQUEST_CODE_ASK_PERMISSIONS: {
+
+                break;
+            }
         }
     }
+
+    void checkDrawPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, REQUEST_CODE_ASK_PERMISSIONS);
+            }
+        }
+    }
+
 }

@@ -13,22 +13,17 @@
         android:summary="Used for this application"
         android:title="Change app password" />
 
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="VibrateIfWrong"
+        android:title="Vibrate on wrong password" />
+
+
     <EditTextPreference
         android:defaultValue="1234"
         android:dialogTitle="New Password"
         android:key="Password"
         android:summary="Used for other locked applications"
         android:title="Change password" />
-
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="RemoveFromRecent"
-        android:summary="This application will not be visible in background apps"
-        android:title="Exclude from recents" />
-
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="VibrateIfWrong"
-        android:title="Vibrate on wrong password" />
 
 </PreferenceScreen>
